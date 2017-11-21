@@ -35,7 +35,7 @@
 
       <div class="jumbotron">
         <h2>Error</h2>
-        <p class="lead">Ocurrió un rror al ingresar tu reclamo:</p>
+        <p class="lead">Ocurrió un error al ingresar tu reclamo:</p>
         <asp:Label ID="info" runat="server" Text=""></asp:Label>
         <a href="javascript:history.back();">Volver al formulario</a>
       </div>

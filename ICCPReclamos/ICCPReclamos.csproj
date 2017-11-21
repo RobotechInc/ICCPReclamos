@@ -111,6 +111,7 @@
     <Compile Include="ITextEvents.cs" />
     <Compile Include="Negocio\Ingreso.cs" />
     <Compile Include="Negocio\Reclamo.cs" />
+    <Compile Include="Negocio\TipoReclamo.cs" />
     <Compile Include="Negocio\Validadores.cs" />
     <Compile Include="Presentacion\Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>

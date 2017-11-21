@@ -71,10 +71,6 @@
               <label class="control-label col-sm-2" for="type">Área:</label>
     <div class="col-sm-4">
       <asp:DropDownList runat="server" class="form-control" id="type">
-          <asp:ListItem>Seleccione una opción:</asp:ListItem>
-          <asp:ListItem>Atención al cliente</asp:ListItem>
-          <asp:ListItem>Comercial</asp:ListItem>
-          <asp:ListItem>Técnico</asp:ListItem>
       </asp:DropDownList>
     </div>
   </div>

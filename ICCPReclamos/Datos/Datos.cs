@@ -29,6 +29,26 @@ namespace ICCPReclamos.Datos
             return count; // retornamos count
         }
 
+        public List<TipoReclamo> GetTipoReclamo()
+        {
+            var l = new List<TipoReclamo>(); // generamos la variable Listado para el tipoReclamo
+            using (var conn = new SqlConnection(Str))
+            {
+                // ejecutamos la consulta
+                var consulta = "SELECT * from tipoReclamo";
+                var cmd = new SqlCommand(consulta, conn);
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read()) // guardamos todos los datos en un tipoReclamo (tr)
+                {
+                    var id = Convert.ToInt32(reader[0]);
+                    var nombre = reader[1].ToString();
+                    var tr = new TipoReclamo(id, nombre);
+                    l.Add(tr); // agregamos cada tipoReclamo (tr) a nuestra lista (l)
+                }
+            }
+            return l; // retornamos la lista
+        }
 
         public void IngresoReclamo(Reclamo rec, string Pdf, DateTime SLA, string Ip) // Ingreso de reclamos, recibe un Reclamo sin retornar algo a cambio, sin embargo puede generar excepción
         // tiene como función ejecutar un procedimiento almacenado para registrar un reclamo

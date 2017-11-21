@@ -1,4 +1,5 @@
 ﻿using ICCPReclamos.Negocio;
+using ICCPReclamos.Datos;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -16,6 +17,16 @@ namespace ICCPReclamos.Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var d = new Datos.Datos();
+            List<TipoReclamo> tipoReclamos = d.GetTipoReclamo();
+
+
+            type.DataTextField = "nombre";
+            type.DataValueField = "id";
+            type.DataSource = tipoReclamos;
+            type.DataBind();
+            type.Items.Insert(0, new System.Web.UI.WebControls.ListItem("<Ingrese Tipo de Reclamo>", "0"));
+
 
         }
         public string GetIP()

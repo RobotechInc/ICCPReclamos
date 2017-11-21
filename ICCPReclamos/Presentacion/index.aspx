@@ -64,7 +64,7 @@
           <div class="form-group">
               <label class="control-label col-sm-2" for="tel">Telefono:</label>
     <div class="col-sm-4">
-      <asp:TextBox runat="server" type="tel" class="form-control" id="tel" placeholder="9 87654321"></asp:TextBox>
+      <asp:TextBox runat="server" type="tel" class="form-control" id="tel" placeholder="9xxxxxxxx" maxlength="9"></asp:TextBox>
     </div>
   </div>
           <div class="form-group">

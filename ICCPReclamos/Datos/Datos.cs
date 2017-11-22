@@ -107,7 +107,7 @@ namespace ICCPReclamos.Datos
             using (var conn = new SqlConnection(Str))
             {
                 // ejecutamos la consulta
-                var consulta = "SELECT reclamo.id, usuarios.nombre, usuarios.apellido, usuarios.rut, usuarios.correo, usuarios.telefono, tipoReclamo.id, reclamo.comentarios, reclamo.fecha, reclamo.pdf, slareclamo.fecha_sla  from reclamo INNER JOIN usuarios on reclamo.rut=usuarios.rut INNER JOIN tipoReclamo on reclamo.area=tipoReclamo.id INNER JOIN slareclamo on reclamo.sla_id=slareclamo.id";
+                var consulta = "SELECT reclamo.id, usuarios.nombre, usuarios.apellido, usuarios.rut, usuarios.correo, usuarios.telefono, tipoReclamo.id, reclamo.comentarios, reclamo.fecha, reclamo.pdf, slareclamo.fecha_sla  from reclamo INNER JOIN usuarios on reclamo.rut=usuarios.rut INNER JOIN tipoReclamo on reclamo.area=tipoReclamo.id INNER JOIN slareclamo on reclamo.sla_id=slareclamo.id ORDER BY slareclamo.fecha_sla";
                 var cmd = new SqlCommand(consulta, conn);
                 conn.Open();
                 var reader = cmd.ExecuteReader();

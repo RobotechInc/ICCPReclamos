@@ -101,13 +101,13 @@ namespace ICCPReclamos.Datos
 
 
         }
-        public List<Ingreso> ListadoReclamos() // Función ListadoReclamos, retorna una Lista (l) con todos los reclamos existentes en la base de datos
+        public List<Ingreso> ListadoReclamosActivos() // Función ListadoReclamos, retorna una Lista (l) con todos los reclamos existentes en la base de datos
         {
             var l = new List<Ingreso>(); // generamos la variable Listado
             using (var conn = new SqlConnection(Str))
             {
                 // ejecutamos la consulta
-                var consulta = "SELECT reclamo.id, usuarios.nombre, usuarios.apellido, usuarios.rut, usuarios.correo, usuarios.telefono, tipoReclamo.id, reclamo.comentarios, reclamo.fecha, reclamo.pdf, slareclamo.fecha_sla  from reclamo INNER JOIN usuarios on reclamo.rut=usuarios.rut INNER JOIN tipoReclamo on reclamo.area=tipoReclamo.id INNER JOIN slareclamo on reclamo.sla_id=slareclamo.id ORDER BY slareclamo.fecha_sla";
+                var consulta = "SELECT reclamo.id, usuarios.nombre, usuarios.apellido, usuarios.rut, usuarios.correo, usuarios.telefono, tipoReclamo.id, reclamo.comentarios, reclamo.fecha, reclamo.pdf, slareclamo.fecha_sla  from reclamo INNER JOIN usuarios on reclamo.rut=usuarios.rut INNER JOIN tipoReclamo on reclamo.area=tipoReclamo.id INNER JOIN slareclamo on reclamo.sla_id=slareclamo.id where reclamo.estado = 1 ORDER BY slareclamo.fecha_sla";
                 var cmd = new SqlCommand(consulta, conn);
                 conn.Open();
                 var reader = cmd.ExecuteReader();

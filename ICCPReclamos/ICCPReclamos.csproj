@@ -95,6 +95,7 @@
     <Content Include="Presentacion\Exito.aspx" />
     <Content Include="Presentacion\index.aspx" />
     <Content Include="Presentacion\Listado.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

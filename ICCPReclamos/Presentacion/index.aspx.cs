@@ -15,19 +15,22 @@ namespace ICCPReclamos.Presentacion
 {
     public partial class index : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            var d = new Datos.Datos();
-            List<TipoReclamo> tipoReclamos = d.GetTipoReclamo();
+            if (!IsPostBack)
+            {
+                var d = new Datos.Datos();
+                List<TipoReclamo> tipoReclamos = d.GetTipoReclamo();
 
 
-            type.DataTextField = "nombre";
-            type.DataValueField = "id";
-            type.DataSource = tipoReclamos;
-            type.DataBind();
-            type.Items.Insert(0, new System.Web.UI.WebControls.ListItem("<Ingrese Tipo de Reclamo>", "0"));
+                type.DataTextField = "nombre";
+                type.DataValueField = "id";
+                type.DataSource = tipoReclamos;
+                type.DataBind();
+                type.Items.Insert(0, new System.Web.UI.WebControls.ListItem("<Ingrese Tipo de Reclamo>", "0"));
 
-
+            }
         }
         public string GetIP()
         {
@@ -154,7 +157,6 @@ namespace ICCPReclamos.Presentacion
             }
         }
 
-
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
             var v = new Validadores();
@@ -184,7 +186,6 @@ namespace ICCPReclamos.Presentacion
                 var pdf = GeneratePdf(rec);
                 var SLA = fec.AddHours(int.Parse(this.slaHoras.Text));
                 d.IngresoReclamo(rec,pdf,SLA,IP);
-
             }
             catch (Exception ex)
             {

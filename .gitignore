@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /ICCPReclamos/PdfUploads/Reclamo_201711212004228243.pdf
+/ICCPReclamos/PdfUploads

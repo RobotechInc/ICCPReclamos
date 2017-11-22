@@ -81,7 +81,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var registro in Listado)
+                        @foreach (var registro in Listado.Take(5))
                         {
                             var id = registro.Id;
                             string comentario = registro.Comentarios;
@@ -103,6 +103,11 @@
                         }
                     </tbody>
                 </table>
+                @if(Listado.Count > 5)
+                {
+                    var extra = Listado.Count - 5;
+                    <p>+@extra Reclamos</p>
+                }
             </div>
         </div>
     </div>

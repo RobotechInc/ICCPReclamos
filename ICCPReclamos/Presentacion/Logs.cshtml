@@ -1,48 +1,20 @@
 ﻿@using ICCPReclamos.Negocio;
 @using ICCPReclamos.Datos;
 @{
-    var Listado = new List<Ingreso>();
+    var Listado = new List<Log>();
     var r = new Datos();
-    Listado = r.ListadoReclamosActivos();
+    Listado = r.GetLogs();
 
 }
 
 <!DOCTYPE html>
 <html lang="es-cl">
 <head>
-    <title>Listado de Reclamos</title>
+    <title>Logs del sistema</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="custom.css" rel="stylesheet">
     <link href="dashboard.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
-    <script>
-        window.onload = function () {
-            var recg = document.getElementById('reclamosGrafico');
-            var reca = document.getElementById('reclamosAtencion');
-
-            var reclamosData = {
-                labels: [
-                    "Atención al cliente",
-                    "Técnico",
-                    "Comercial"
-                ],
-                datasets: [
-                    {
-                        data: [@r.CountReclamosAtencion(),@r.CountReclamosTecnico(),@r.CountReclamosComercial()],
-                        backgroundColor: [
-                            "#58FA82",
-                            "#8181F7",
-                            "#D358F7"]
-                    }]
-            };
-
-            var pieChart = new Chart(recg, {
-                type: 'pie',
-                data: reclamosData
-            })
-
-        };</script>
 </head>
 <body>
 
@@ -62,7 +34,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Inicio</a></li>
                     <li><a href="#">Usuarios</a></li>
-                    <li><a href="~/Presentacion/Logs.cshtml">Logs</a></li>
+                    <li><a href="#">Logs</a></li>
                     <li><a href="#">Salir</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
@@ -88,7 +60,7 @@
                 </ul>
             </div>
         </nav>*@
-        <!-- test -->
+    <!-- test -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
@@ -112,87 +84,35 @@
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="position:absolute">
                 <h1 class="page-header">Panel Administración</h1>
-
-                <div class="row placeholders">
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <h1>@r.CountReclamosActivos()</h1>
-                        <h4>Reclamos</h4>
-                        <span class="text-muted">Sin cerrar</span>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <canvas id="reclamosGrafico" width="200" height="200"></canvas>
-                        <h4>Reclamos</h4>
-                        <span class="text-muted">Por área sin cerrar</span>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <canvas id="reclamosTecnico" width="200" height="200"></canvas>
-                        <h4>Label</h4>
-                        <span class="text-muted">Something else</span>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <canvas id="reclamosComercial" width="200" height="200"></canvas>
-                        <h4>Label</h4>
-                        <span class="text-muted">Something else</span>
-                    </div>
-                </div>
-
-
-                <h2 class="sub-header">Últimos 5 reclamos abiertos por vencer</h2>
+                <h2 class="sub-header">Últimas 20 entradas en el registro de actividades</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
                                 <th>RUT</th>
-                                <th>Área</th>
-                                <th>Comentarios</th>
                                 <th>Fecha</th>
-                                <th>SLA</th>
-                                <th>PDF</th>
+                                <th>Mensaje</th>
+                                <th>IP</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var registro in Listado.Take(5))
+                            @foreach (var registro in Listado.Take(20))
                             {
-                                var fechaActual = DateTime.Now;
-                                var id = registro.Id;
-                                string comentario = registro.Comentarios;
-                                if (registro.Comentarios.Length > 20)
-                                {
-                                    comentario = registro.Comentarios.Substring(0, 20) + " (...)";
-                                }
                                 <tr>
-                                    <td><a href="Editar.aspx?id=@id">@id</td>
-                                    <td>@registro.Nombre</td>
-                                    <td>@registro.Apellido</td>
+                                    <td>@registro.Id</td>
                                     <td>@registro.Rut</td>
-                                    <td>@registro.Tipo</td>
-                                    <td>@comentario</td>
                                     <td>@registro.Fecha</td>
-                                    @if (registro.SLA < fechaActual)
-                                    {
-                                        <td><span class="label label-danger">@registro.SLA</span></td>
-                                    }
-                                    else
-                                    {
-                                        <td><span class="label label-warning">@registro.SLA</span></td>
-                                    }
-                                    <td><a href="../PdfUploads/@registro.Pdf"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+                                    <td>@registro.Mensaje</td>
+                                    <td>@registro.Ip</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
-                    @if (Listado.Count > 5)
+                    @if (Listado.Count > 20)
                     {
-                        var extra = Listado.Count - 5;
-                        <p><a href="ListadoCompleto.cshtml">+ @extra Reclamos</a></p>
+                        var extra = Listado.Count - 20;
+                        <p>+ @extra registros</p>
                     }
                 </div>
             </div>
@@ -201,7 +121,6 @@
 </body>
 
 <!-- chart js minimizado -->
-
 <!-- bootstrap 3 minimizado -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 

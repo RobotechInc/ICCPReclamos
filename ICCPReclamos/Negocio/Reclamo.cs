@@ -13,11 +13,11 @@ namespace ICCPReclamos.Negocio
         public string Rut { get; set; }
         public string Email { get; set; }
         public int Telefono { get; set; }
-        public int Tipo { get; set; }
+        public string Tipo { get; set; }
         public string Comentarios { get; set; }
         public DateTime Fecha { get; set; }
 
-        public Reclamo(int Id, string Nombre, string Apellido, string Rut, string Email, int Telefono, int Tipo, string Comentarios, DateTime Fecha)
+        public Reclamo(int Id, string Nombre, string Apellido, string Rut, string Email, int Telefono, string Tipo, string Comentarios, DateTime Fecha)
         {
             this.Id = Id;
             this.Nombre = Nombre;
@@ -38,7 +38,7 @@ namespace ICCPReclamos.Negocio
             this.Rut = "";
             this.Email = "";
             this.Telefono = 0;
-            this.Tipo = 0;
+            this.Tipo = "";
             this.Comentarios = "";
             this.Fecha = DateTime.Now;
         }

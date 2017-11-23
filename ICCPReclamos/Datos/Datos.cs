@@ -28,6 +28,100 @@ namespace ICCPReclamos.Datos
             }
             return count; // retornamos count
         }
+        public int CountReclamosActivos() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        {
+            var count = 0; // parte count en 0
+            using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
+            {
+                conn.Open();
+                var consulta = "SELECT count(id) from reclamo where estado = 1"; // usamos la consulta MAX(id)
+                var cmd = new SqlCommand(consulta, conn);
+                var reader = cmd.ExecuteReader();
+                reader.Read(); // leemos
+                count = reader.GetInt32(0); // guardamos en count
+            }
+            return count; // retornamos count
+        }
+
+
+        public int CountReclamosAtencion() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        {
+            var count = 0; // parte count en 0
+            using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
+            {
+                conn.Open();
+                var consulta = "SELECT count(id) from reclamo where estado = 1 AND area = 1"; // usamos la consulta MAX(id)
+                var cmd = new SqlCommand(consulta, conn);
+                var reader = cmd.ExecuteReader();
+                reader.Read(); // leemos
+                count = reader.GetInt32(0); // guardamos en count
+            }
+            return count; // retornamos count
+        }
+
+        public int CountReclamosTecnico() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        {
+            var count = 0; // parte count en 0
+            using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
+            {
+                conn.Open();
+                var consulta = "SELECT count(id) from reclamo where estado = 1 AND area = 2"; // usamos la consulta MAX(id)
+                var cmd = new SqlCommand(consulta, conn);
+                var reader = cmd.ExecuteReader();
+                reader.Read(); // leemos
+                count = reader.GetInt32(0); // guardamos en count
+            }
+            return count; // retornamos count
+        }
+
+        public int CountReclamosComercial() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        {
+            var count = 0; // parte count en 0
+            using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
+            {
+                conn.Open();
+                var consulta = "SELECT count(id) from reclamo where estado = 1 AND area = 3"; // usamos la consulta MAX(id)
+                var cmd = new SqlCommand(consulta, conn);
+                var reader = cmd.ExecuteReader();
+                reader.Read(); // leemos
+                count = reader.GetInt32(0); // guardamos en count
+            }
+            return count; // retornamos count
+        }
+
+
+
+        public int CountReclamosCerrados() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        {
+            var count = 0; // parte count en 0
+            using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
+            {
+                conn.Open();
+                var consulta = "SELECT count(id) from reclamo where estado = 2"; // usamos la consulta MAX(id)
+                var cmd = new SqlCommand(consulta, conn);
+                var reader = cmd.ExecuteReader();
+                reader.Read(); // leemos
+                count = reader.GetInt32(0); // guardamos en count
+            }
+            return count; // retornamos count
+        }
+        
+        public void CerrarReclamo(int id)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Str))
+                {
+                    string consulta = "update reclamo set estado=2 where id =" + id;
+                    SqlCommand cmd = new SqlCommand(consulta, conn);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public List<TipoReclamo> GetTipoReclamo()
         {
@@ -78,7 +172,7 @@ namespace ICCPReclamos.Datos
                 cmd.Parameters.AddWithValue("rut", rec.Rut);
                 cmd.Parameters.AddWithValue("email", rec.Email);
                 cmd.Parameters.AddWithValue("telefono", rec.Telefono);
-                cmd.Parameters.AddWithValue("area", rec.Tipo);
+                cmd.Parameters.AddWithValue("area", Convert.ToInt32(rec.Tipo));
                 cmd.Parameters.AddWithValue("comentarios", rec.Comentarios);
                 cmd.Parameters.AddWithValue("fecha", rec.Fecha);
                 cmd.Parameters.AddWithValue("pdf", Pdf);
@@ -107,7 +201,7 @@ namespace ICCPReclamos.Datos
             using (var conn = new SqlConnection(Str))
             {
                 // ejecutamos la consulta
-                var consulta = "SELECT reclamo.id, usuarios.nombre, usuarios.apellido, usuarios.rut, usuarios.correo, usuarios.telefono, tipoReclamo.id, reclamo.comentarios, reclamo.fecha, reclamo.pdf, slareclamo.fecha_sla  from reclamo INNER JOIN usuarios on reclamo.rut=usuarios.rut INNER JOIN tipoReclamo on reclamo.area=tipoReclamo.id INNER JOIN slareclamo on reclamo.sla_id=slareclamo.id where reclamo.estado = 1 ORDER BY slareclamo.fecha_sla";
+                var consulta = "SELECT reclamo.id, usuarios.nombre, usuarios.apellido, usuarios.rut, usuarios.correo, usuarios.telefono, tipoReclamo.nombre, reclamo.comentarios, reclamo.fecha, reclamo.pdf, slareclamo.fecha_sla  from reclamo INNER JOIN usuarios on reclamo.rut=usuarios.rut INNER JOIN tipoReclamo on reclamo.area=tipoReclamo.id INNER JOIN slareclamo on reclamo.sla_id=slareclamo.id where reclamo.estado = 1 ORDER BY slareclamo.fecha_sla";
                 var cmd = new SqlCommand(consulta, conn);
                 conn.Open();
                 var reader = cmd.ExecuteReader();
@@ -119,7 +213,7 @@ namespace ICCPReclamos.Datos
                     var rut = reader[3].ToString();
                     var ema = reader[4].ToString();
                     var tel = Convert.ToInt32(reader[5]);
-                    var tip = Convert.ToInt32(reader[6].ToString());
+                    var tip = reader[6].ToString();
                     var com = reader[7].ToString();
                     var fec = Convert.ToDateTime(reader[8]);
                     var pdf = reader[9].ToString();
@@ -136,7 +230,7 @@ namespace ICCPReclamos.Datos
             Ingreso r = null; // creamos un reclamo nulo para empezar
             using (var conn = new SqlConnection(Str)) // iniciamos la consulta relacional
             {
-                string consulta = "SELECT reclamo.id, usuarios.nombre, usuarios.apellido, usuarios.rut, usuarios.correo, usuarios.telefono, tipoReclamo.id, reclamo.comentarios, reclamo.fecha, reclamo.pdf, reclamo.sla_id  from reclamo INNER JOIN usuarios on reclamo.rut=usuarios.rut INNER JOIN tipoReclamo on reclamo.area=tipoReclamo.id where reclamo.id = " + id;
+                string consulta = "SELECT reclamo.id, usuarios.nombre, usuarios.apellido, usuarios.rut, usuarios.correo, usuarios.telefono, tipoReclamo.nombre, reclamo.comentarios, reclamo.fecha, reclamo.pdf, slareclamo.fecha_sla  from reclamo INNER JOIN usuarios on reclamo.rut=usuarios.rut INNER JOIN tipoReclamo on reclamo.area=tipoReclamo.id INNER JOIN slareclamo on reclamo.sla_id=slareclamo.id where reclamo.id = " + id;
                 var cmd = new SqlCommand(consulta, conn);
                 conn.Open();
                 var reader = cmd.ExecuteReader(); // ejecutamos los parámetros
@@ -148,7 +242,7 @@ namespace ICCPReclamos.Datos
                     var rut = reader[3].ToString();
                     var ema = reader[4].ToString();
                     var tel = Convert.ToInt32(reader[5]);
-                    var tip = Convert.ToInt32(reader[6].ToString());
+                    var tip = reader[6].ToString();
                     var com = reader[7].ToString();
                     var fec = Convert.ToDateTime(reader[8]);
                     var pdf = reader[9].ToString();
@@ -178,7 +272,7 @@ namespace ICCPReclamos.Datos
                         var rut = reader[3].ToString();
                         var ema = reader[4].ToString();
                         var tel = Convert.ToInt32(reader[5]);
-                        var tip = Convert.ToInt32(reader[6].ToString());
+                        var tip = reader[6].ToString();
                         var com = reader[7].ToString();
                         var fec = Convert.ToDateTime(reader[8]);
                         var pdf = reader[9].ToString();
@@ -209,7 +303,7 @@ namespace ICCPReclamos.Datos
                         var rut = reader[3].ToString();
                         var ema = reader[4].ToString();
                         var tel = Convert.ToInt32(reader[5]);
-                        var tip = Convert.ToInt32(reader[6].ToString());
+                        var tip = reader[6].ToString();
                         var com = reader[7].ToString();
                         var fec = Convert.ToDateTime(reader[8]);
                         var pdf = reader[9].ToString();
@@ -219,6 +313,31 @@ namespace ICCPReclamos.Datos
                 }
             }
             return r;
+        }
+        public List<Log> GetLogs()
+        {
+            var l = new List<Log>();
+            using (var conn = new SqlConnection(Str))
+            {
+                string consulta = "select * from logs order by tiempo_log DESC";
+                var cmd = new SqlCommand(consulta, conn);
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var id = Convert.ToInt32(reader[0]);
+                        var rut = reader[1].ToString();
+                        var fecha = Convert.ToDateTime(reader[2].ToString());
+                        var mensaje = reader[3].ToString();
+                        var ip = reader[4].ToString();
+                        var log = new Log(id, rut, fecha, mensaje, ip);
+                        l.Add(log);
+                    }
+                }
+            }
+            return l;
         }
     }
 }

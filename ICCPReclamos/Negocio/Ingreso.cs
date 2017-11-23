@@ -13,13 +13,13 @@ namespace ICCPReclamos.Negocio
         public string Rut { get; set; }
         public string Email { get; set; }
         public int Telefono { get; set; }
-        public int Tipo { get; set; } // tipo reclamo
+        public string Tipo { get; set; } // tipo reclamo
         public string Comentarios { get; set; } // reclamo
         public DateTime Fecha { get; set; } // reclamo
         public string Pdf { get; set; } // pdf reclamo
         public DateTime SLA { get; set; } // fecha SLA
 
-        public Ingreso(int Id, string Nombre, string Apellido, string Rut, string Email, int Telefono, int Tipo, string Comentarios, DateTime Fecha, string Pdf, DateTime SLA)
+        public Ingreso(int Id, string Nombre, string Apellido, string Rut, string Email, int Telefono, string Tipo, string Comentarios, DateTime Fecha, string Pdf, DateTime SLA)
         {
             this.Id = Id;
             this.Nombre = Nombre;

@@ -91,10 +91,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Presentacion\dashboard.css" />
+    <Content Include="Presentacion\Editar.aspx" />
     <Content Include="Presentacion\Error.aspx" />
     <Content Include="Presentacion\Exito.aspx" />
     <Content Include="Presentacion\index.aspx" />
     <Content Include="Presentacion\Listado.cshtml" />
+    <Content Include="Presentacion\ListadoCompleto.cshtml" />
+    <Content Include="Presentacion\Logs.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -111,9 +115,17 @@
     <Compile Include="Datos\Datos.cs" />
     <Compile Include="ITextEvents.cs" />
     <Compile Include="Negocio\Ingreso.cs" />
+    <Compile Include="Negocio\Log.cs" />
     <Compile Include="Negocio\Reclamo.cs" />
     <Compile Include="Negocio\TipoReclamo.cs" />
     <Compile Include="Negocio\Validadores.cs" />
+    <Compile Include="Presentacion\Editar.aspx.cs">
+      <DependentUpon>Editar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Editar.aspx.designer.cs">
+      <DependentUpon>Editar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

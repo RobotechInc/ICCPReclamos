@@ -22,8 +22,6 @@ namespace ICCPReclamos.Presentacion
             {
                 var d = new Datos.Datos();
                 List<TipoReclamo> tipoReclamos = d.GetTipoReclamo();
-
-
                 type.DataTextField = "nombre";
                 type.DataValueField = "id";
                 type.DataSource = tipoReclamos;
@@ -166,6 +164,10 @@ namespace ICCPReclamos.Presentacion
             try
             {
                 var nom = firstname.Text;
+                if (v.validarNombre(nom))
+                {
+                    throw new Exception("Nombre no válido");
+                }
                 var ape = lastname.Text;
                 var rut = this.rut.Text;
                 if (v.validarRut(rut) == false)
@@ -177,7 +179,7 @@ namespace ICCPReclamos.Presentacion
                 rut = rut.Replace("-", "");
                 var email = this.email.Text;
                 var tel = int.Parse(this.tel.Text);
-                var type = this.type.SelectedIndex;
+                var type = this.type.SelectedIndex.ToString();
                 var com = comment.Text;
                 var fec = DateTime.Now;
 

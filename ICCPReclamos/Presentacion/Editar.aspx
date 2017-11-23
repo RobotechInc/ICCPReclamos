@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="ICCPReclamos.Presentacion.index" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Editar.aspx.cs" Inherits="ICCPReclamos.Presentacion.Editar" %>
 
 <!DOCTYPE html>
 <html lang ="es-cl">
@@ -15,7 +15,7 @@
 <div class="container">
 
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Robotech ICCP.Net</a>
@@ -31,8 +31,26 @@
     </ul>
   </div>
 </nav>
+          <%--<div class="masthead">
+        <h3 class="text-muted">Robotech's ICCP.Net Alpha v0.1</h3>
+        <nav>
+          <ul class="nav nav-justified">
+            <li class="active"><a href="index.aspx">Inicio</a></li>
+            <li><a href="index.aspx">Ingreso Reclamos</a></li>
+            <li><a href="#">Consulta Reclamo</a></li>
+            <li><a href="#">Administración</a></li>
+          </ul>
+        </nav>
+      </div>--%>
       <form class="form-horizontal" runat="server">
-          <h2 class="form-heading">Ingreso de Reclamos</h2>
+          <h2 class="form-heading">Editar reclamo</h2>
+
+          <div class="form-group">
+              <label class="control-label col-sm-2" for="ide">ID:</label>
+    <div class="col-sm-4">
+      <asp:TextBox runat="server" type="ide" class="form-control" id="ide"></asp:TextBox>
+    </div>
+  </div>
 
    <div class="form-group">
     <label class="control-label col-sm-2" for="firstname">Nombre:</label>
@@ -64,13 +82,17 @@
           <div class="form-group">
               <label class="control-label col-sm-2" for="tel">Telefono:</label>
     <div class="col-sm-4">
-      <asp:TextBox runat="server" type="tel" class="form-control" id="tel" placeholder="9xxxxxxxx" maxlength="9"></asp:TextBox>
+      <asp:TextBox runat="server" type="tel" class="form-control" id="tel" placeholder="9 87654321"></asp:TextBox>
     </div>
   </div>
           <div class="form-group">
               <label class="control-label col-sm-2" for="type">Área:</label>
     <div class="col-sm-4">
       <asp:DropDownList runat="server" class="form-control" id="type">
+          <asp:ListItem>Seleccione una opción:</asp:ListItem>
+          <asp:ListItem>Atención al cliente</asp:ListItem>
+          <asp:ListItem>Comercial</asp:ListItem>
+          <asp:ListItem>Técnico</asp:ListItem>
       </asp:DropDownList>
     </div>
   </div>
@@ -81,21 +103,21 @@
 <asp:textbox TextMode="MultiLine" runat="server" class="form-control" rows="5" id="comment" placeholder="Cuéntanos en breve los detalles de tu incidencia" required></asp:textbox>
     </div>
   </div>
-
-                    <div class="form-group">
-              <label class="control-label col-sm-2" for="tel">SLA en Horas</label>
+          <div class="form-group">
+              <label class="control-label col-sm-2" for="fec">Fecha:</label>
     <div class="col-sm-4">
-      <asp:TextBox runat="server" type="number" class="form-control" id="slaHoras" placeholder="0"></asp:TextBox>
+      <asp:TextBox runat="server" type="fec" class="form-control" id="fec"></asp:TextBox>
     </div>
   </div>
-
-  <div class="form-group"> 
+          <div class="form-group"> 
     <div class="col-sm-offset-2 col-sm-10">
       <asp:button type="submit" class="btn btn-default" id="btnEnviar" runat="server" Text="Enviar" onclick="btnEnviar_Click"></asp:button>
         <asp:button type="reset" class="btn btn-default" runat="server" Text="Reestablecer"></asp:button></div>
     </div>
   </div>
-    </form>
+
+</form>
+
 
     <footer class="blog-footer">
       <p>ICCP.Net Platform made with ♥ by <a href="index.aspx">Robotech INC</a></p>

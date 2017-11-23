@@ -7,6 +7,18 @@ namespace ICCPReclamos.Negocio
 {
     public class Validadores
     {
+        public bool validarNombre(string nombre)
+        {
+            var validacion = false;
+
+                if (nombre.Length > 2)
+                {
+                    validacion = true;
+                }
+
+            return validacion;
+        }
+
         public bool validarRut(string rut)
         {
 

@@ -18,6 +18,18 @@ namespace ICCPReclamos.Presentacion
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuarioValido"] != null)
+            {
+                if (!Session["usuarioValido"].Equals("valido"))
+                {
+                    Server.Transfer("Login.aspx", true);
+                }
+            }
+            else
+            {
+                Server.Transfer("Login.aspx", true);
+            }
+
             if (!IsPostBack)
             {
                 var d = new Datos.Datos();
@@ -164,10 +176,6 @@ namespace ICCPReclamos.Presentacion
             try
             {
                 var nom = firstname.Text;
-                if (v.validarNombre(nom))
-                {
-                    throw new Exception("Nombre no válido");
-                }
                 var ape = lastname.Text;
                 var rut = this.rut.Text;
                 if (v.validarRut(rut) == false)

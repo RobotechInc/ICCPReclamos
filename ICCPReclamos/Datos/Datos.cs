@@ -14,6 +14,67 @@ namespace ICCPReclamos.Datos
                 "Server=45.7.230.103; Database=ICCP_Final; Integrated Security=SSPI;"; */
                 "Data Source=45.7.230.103; Initial Catalog=ICCP_Final; User id=sa; Password=16203119s?;";
 
+        public bool AddUser(string username, string password)
+        {
+            // Esta función agrega un usuario para navegar en el sistema
+
+            // Se crea un GUID único para cada usuario
+            Guid userGuid = System.Guid.NewGuid();
+
+            // Se hashea la password con el guid
+            string hashedPassword = Security.HashSHA1(password + userGuid.ToString());
+
+            SqlConnection con = new SqlConnection(Str);
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO [logins] VALUES (@username, @pass, @userGuid)", con))
+            {
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@pass", hashedPassword); // se guarda el HASH
+                cmd.Parameters.AddWithValue("@userGuid", userGuid); // se guarda el GUID
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return true;
+        }
+
+        public int GetUserIdByUsernameAndPassword(string username, string password)
+        {
+            // variable para retornar al final
+            int userId = 0;
+
+            SqlConnection con = new SqlConnection(Str);
+            using (SqlCommand cmd = new SqlCommand("SELECT userId, pass, userGuid FROM [logins] WHERE username=@username", con))
+            {
+                cmd.Parameters.AddWithValue("@username", username);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    // dr.Read() = se encontró usuario
+
+                    int dbUserId = Convert.ToInt32(dr["userId"]);
+                    string dbPassword = Convert.ToString(dr["pass"]);
+                    string dbUserGuid = Convert.ToString(dr["userGuid"]);
+
+                    // pasamos los datos recibidos de la misma manera que se encriptaron
+                    string hashedPassword = Security.HashSHA1(password + dbUserGuid);
+
+                    // comprobamos si la contraseña es correcta
+                    if (dbPassword == hashedPassword)
+                    {
+                        // guardamos el userId del usuario
+                        userId = dbUserId;
+                    }
+                }
+                con.Close();
+            }
+
+            // Retornamos el valor, si es mayor a 0 es porque tenemos el usuario con su contraseña correcta
+            // en caso contrario, va a retornar 0.
+            return userId;
+        }
+
         public int GetLastReclamo() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
         {
             var count = 0; // parte count en 0
@@ -28,6 +89,7 @@ namespace ICCPReclamos.Datos
             }
             return count; // retornamos count
         }
+
         public int CountReclamosActivos() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
         {
             var count = 0; // parte count en 0

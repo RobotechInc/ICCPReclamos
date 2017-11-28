@@ -12,6 +12,18 @@ namespace ICCPReclamos.Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuarioValido"] != null)
+            {
+                if (!Session["usuarioValido"].Equals("valido"))
+                {
+                    Server.Transfer("Login.aspx", true);
+                }
+            }
+            else
+            {
+                Server.Transfer("Login.aspx", true);
+            }
+
             int id = int.Parse(Request.QueryString["id"]);
 
             var v = new Validadores();

@@ -91,13 +91,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Images\ASP-NET-LOGO-300x300.png" />
+    <Content Include="Images\microsoft-sql-server.svg" />
+    <Content Include="Images\noun_993097_cc.png" />
+    <Content Include="Presentacion\Componentes.aspx" />
     <Content Include="Presentacion\dashboard.css" />
     <Content Include="Presentacion\Editar.aspx" />
     <Content Include="Presentacion\Error.aspx" />
     <Content Include="Presentacion\Exito.aspx" />
     <Content Include="Presentacion\index.aspx" />
+    <Content Include="Presentacion\IngresoUsuarios.aspx" />
+    <Content Include="Presentacion\justified-nav.css" />
     <Content Include="Presentacion\Listado.cshtml" />
     <Content Include="Presentacion\ListadoCompleto.cshtml" />
+    <Content Include="Presentacion\Login.aspx" />
     <Content Include="Presentacion\Logs.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
@@ -109,7 +116,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Presentacion\custom.css" />
-    <Content Include="Web.config" />
+    <Content Include="Presentacion\Nosotros.aspx" />
+    <Content Include="Presentacion\signin.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datos\Datos.cs" />
@@ -117,8 +128,16 @@
     <Compile Include="Negocio\Ingreso.cs" />
     <Compile Include="Negocio\Log.cs" />
     <Compile Include="Negocio\Reclamo.cs" />
+    <Compile Include="Negocio\Security.cs" />
     <Compile Include="Negocio\TipoReclamo.cs" />
     <Compile Include="Negocio\Validadores.cs" />
+    <Compile Include="Presentacion\Componentes.aspx.cs">
+      <DependentUpon>Componentes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Componentes.aspx.designer.cs">
+      <DependentUpon>Componentes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Editar.aspx.cs">
       <DependentUpon>Editar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -147,11 +166,32 @@
     <Compile Include="Presentacion\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\IngresoUsuarios.aspx.cs">
+      <DependentUpon>IngresoUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentacion\IngresoUsuarios.aspx.designer.cs">
+      <DependentUpon>IngresoUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Nosotros.aspx.cs">
+      <DependentUpon>Nosotros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Nosotros.aspx.designer.cs">
+      <DependentUpon>Nosotros.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
     <Folder Include="PdfUploads\" />
+    <Folder Include="Presentacion\Account\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

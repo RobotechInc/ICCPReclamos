@@ -4,6 +4,17 @@
     var Listado = new List<Ingreso>();
     var r = new Datos();
     Listado = r.ListadoReclamosActivos();
+    if (Session["usuarioValido"] != null)
+    {
+        if (!Session["usuarioValido"].Equals("valido"))
+        {
+            Server.Transfer("Login.aspx", true);
+        }
+    }
+    else
+    {
+        Server.Transfer("Login.aspx", true);
+    }
 
 }
 

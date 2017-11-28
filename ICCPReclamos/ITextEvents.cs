@@ -196,13 +196,13 @@ namespace ICCPReclamos
             headerTemplate.BeginText();
             headerTemplate.SetFontAndSize(bf, 12);
             headerTemplate.SetTextMatrix(0, 0);
-            headerTemplate.ShowText((writer.PageNumber - 1).ToString());
+            headerTemplate.ShowText((writer.PageNumber).ToString());
             headerTemplate.EndText();
 
             footerTemplate.BeginText();
             footerTemplate.SetFontAndSize(bf, 12);
             footerTemplate.SetTextMatrix(0, 0);
-            footerTemplate.ShowText((writer.PageNumber - 1).ToString());
+            footerTemplate.ShowText((writer.PageNumber).ToString());
             footerTemplate.EndText();
         }
     }

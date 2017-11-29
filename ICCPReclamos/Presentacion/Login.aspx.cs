@@ -31,12 +31,12 @@ namespace ICCPReclamos.Presentacion
             if (userId() > 0)
             {
                 Session["usuarioValido"] = "valido";
-                Response.Redirect("index.aspx");
-                ErrorDiv.Visible = false;
+                    Response.Redirect(Request.UrlReferrer.ToString());
+                    ErrorDiv.Visible = false;
             }
             else
             {
-                inputRut.Text = "";
+                inputRut.Text = Request.UrlReferrer.ToString();
                 inputPassword.Text = "";
                 ErrorDiv.Visible = true;
             }

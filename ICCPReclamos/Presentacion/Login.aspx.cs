@@ -22,6 +22,10 @@ namespace ICCPReclamos.Presentacion
     }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.UrlReferrer.ToString().Contains("Login.aspx"))
+            {
+                Response.Redirect("Componentes.aspx");
+            }
             ErrorDiv.Visible = false;
         }
 
@@ -36,7 +40,7 @@ namespace ICCPReclamos.Presentacion
             }
             else
             {
-                inputRut.Text = Request.UrlReferrer.ToString();
+                inputRut.Text = "";
                 inputPassword.Text = "";
                 ErrorDiv.Visible = true;
             }

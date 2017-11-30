@@ -4,11 +4,12 @@
     var Listado = new List<Ingreso>();
     var r = new Datos();
     Listado = r.ListadoReclamosActivos();
+    @* Comparamos sesión para ver si estamos autenticados y entrar al sistema, sino, redirección *@
     if (Session["usuarioValido"] != null)
     {
         if (!Session["usuarioValido"].Equals("valido"))
         {
-            Server.Transfer("Login.aspx", true);
+            Server.Transfer("Login.aspx", true); 
         }
     }
     else
@@ -25,13 +26,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="custom.css" rel="stylesheet">
     <link href="dashboard.css" rel="stylesheet">
+    @* Referencia a Chart.js *@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
     <script>
         window.onload = function () {
-            var recg = document.getElementById('reclamosGrafico');
-            var reca = document.getElementById('reclamosTecnico');
+            var recg = document.getElementById('GraficoUno');
+            var reca = document.getElementById('GraficoDos');
 
-            var reclamosData = {
+            var reclamosData = { @* Se ingresan los labels del grafico uno que representa reclamos abiertos por area *@
                 labels: [
                     "Atención al cliente",
                     "Técnico",
@@ -39,20 +41,20 @@
                 ],
                 datasets: [
                     {
-                        data: [@r.CountReclamosAtencion(),@r.CountReclamosTecnico(),@r.CountReclamosComercial()],
+                        data: [@r.CountReclamosAreaEstado(1,1),@r.CountReclamosAreaEstado(2,1),@r.CountReclamosAreaEstado(3,1)],
                         backgroundColor: [
                             "#58FA82",
                             "#8181F7",
                             "#D358F7"]
                     }]
             };
-
+            @* se instancia el gráfico y se lanza *@
             var pieChart = new Chart(recg, {
                 type: 'pie',
                 data: reclamosData
             })
 
-
+            @* Lo mismo para el gráfico 2 *@
 
             var reclamosData2 = {
                 labels: [
@@ -61,7 +63,7 @@
                 ],
                 datasets: [
                     {
-                        data: [@r.CountReclamosActivos(),@r.CountReclamosCerrados()],
+                        data: [@r.CountReclamosEstado(1),@r.CountReclamosEstado(2)],
                         backgroundColor: [
                             "#58FA82",
                             "#8181F7"]
@@ -72,12 +74,6 @@
                 type: 'pie',
                 data: reclamosData2
             })
-
-
-
-
-
-
 
         };</script>
 </head>
@@ -157,17 +153,17 @@
                         <br />
                         <br />
                         <br />
-                        <h1>@r.CountReclamosActivos()</h1>
+                        <h1>@r.CountReclamosEstado(1)</h1>
                         <h4>Reclamos actualmente</h4>
                         <span class="text-muted">Sin cerrar</span>
                     </div>
                     <div class="col-xs-6 col-sm-3 placeholder">
-                        <canvas id="reclamosGrafico" width="200" height="200"></canvas>
+                        <canvas id="GraficoUno" width="200" height="200"></canvas>
                         <h4>Reclamos actuales</h4>
                         <span class="text-muted">Por área sin cerrar</span>
                     </div>
                     <div class="col-xs-6 col-sm-3 placeholder">
-                        <canvas id="reclamosTecnico" width="200" height="200"></canvas>
+                        <canvas id="GraficoDos" width="200" height="200"></canvas>
                         <h4>Reclamos</h4>
                         <span class="text-muted">Abiertos / Cerrados</span>
                     </div>

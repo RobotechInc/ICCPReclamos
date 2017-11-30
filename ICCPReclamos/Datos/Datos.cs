@@ -90,13 +90,13 @@ namespace ICCPReclamos.Datos
             return count; // retornamos count
         }
 
-        public int CountReclamosActivos() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        public int CountReclamosEstado(int estado) // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
         {
             var count = 0; // parte count en 0
             using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
             {
                 conn.Open();
-                var consulta = "SELECT count(id) from reclamo where estado = 1"; // usamos la consulta MAX(id)
+                var consulta = "SELECT count(id) from reclamo where estado = "+estado; //
                 var cmd = new SqlCommand(consulta, conn);
                 var reader = cmd.ExecuteReader();
                 reader.Read(); // leemos
@@ -106,13 +106,13 @@ namespace ICCPReclamos.Datos
         }
 
 
-        public int CountReclamosAtencion() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        public int CountReclamosAreaEstado(int area, int estado) // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
         {
             var count = 0; // parte count en 0
             using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
             {
                 conn.Open();
-                var consulta = "SELECT count(id) from reclamo where estado = 1 AND area = 1"; // usamos la consulta MAX(id)
+                var consulta = "SELECT count(id) from reclamo where estado = "+estado+" AND area = "+area; //
                 var cmd = new SqlCommand(consulta, conn);
                 var reader = cmd.ExecuteReader();
                 reader.Read(); // leemos
@@ -121,52 +121,52 @@ namespace ICCPReclamos.Datos
             return count; // retornamos count
         }
 
-        public int CountReclamosTecnico() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
-        {
-            var count = 0; // parte count en 0
-            using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
-            {
-                conn.Open();
-                var consulta = "SELECT count(id) from reclamo where estado = 1 AND area = 2"; // usamos la consulta MAX(id)
-                var cmd = new SqlCommand(consulta, conn);
-                var reader = cmd.ExecuteReader();
-                reader.Read(); // leemos
-                count = reader.GetInt32(0); // guardamos en count
-            }
-            return count; // retornamos count
-        }
+        //public int CountReclamosTecnico() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        //{
+        //    var count = 0; // parte count en 0
+        //    using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
+        //    {
+        //        conn.Open();
+        //        var consulta = "SELECT count(id) from reclamo where estado = 1 AND area = 2"; // usamos la consulta MAX(id)
+        //        var cmd = new SqlCommand(consulta, conn);
+        //        var reader = cmd.ExecuteReader();
+        //        reader.Read(); // leemos
+        //        count = reader.GetInt32(0); // guardamos en count
+        //    }
+        //    return count; // retornamos count
+        //}
 
-        public int CountReclamosComercial() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
-        {
-            var count = 0; // parte count en 0
-            using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
-            {
-                conn.Open();
-                var consulta = "SELECT count(id) from reclamo where estado = 1 AND area = 3"; // usamos la consulta MAX(id)
-                var cmd = new SqlCommand(consulta, conn);
-                var reader = cmd.ExecuteReader();
-                reader.Read(); // leemos
-                count = reader.GetInt32(0); // guardamos en count
-            }
-            return count; // retornamos count
-        }
+        //public int CountReclamosComercial() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        //{
+        //    var count = 0; // parte count en 0
+        //    using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
+        //    {
+        //        conn.Open();
+        //        var consulta = "SELECT count(id) from reclamo where estado = 1 AND area = 3"; // usamos la consulta MAX(id)
+        //        var cmd = new SqlCommand(consulta, conn);
+        //        var reader = cmd.ExecuteReader();
+        //        reader.Read(); // leemos
+        //        count = reader.GetInt32(0); // guardamos en count
+        //    }
+        //    return count; // retornamos count
+        //}
 
 
 
-        public int CountReclamosCerrados() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
-        {
-            var count = 0; // parte count en 0
-            using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
-            {
-                conn.Open();
-                var consulta = "SELECT count(id) from reclamo where estado = 2"; // usamos la consulta MAX(id)
-                var cmd = new SqlCommand(consulta, conn);
-                var reader = cmd.ExecuteReader();
-                reader.Read(); // leemos
-                count = reader.GetInt32(0); // guardamos en count
-            }
-            return count; // retornamos count
-        }
+        //public int CountReclamosCerrados() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
+        //{
+        //    var count = 0; // parte count en 0
+        //    using (SqlConnection conn = new SqlConnection(Str)) // se abre conexión
+        //    {
+        //        conn.Open();
+        //        var consulta = "SELECT count(id) from reclamo where estado = 2"; // usamos la consulta MAX(id)
+        //        var cmd = new SqlCommand(consulta, conn);
+        //        var reader = cmd.ExecuteReader();
+        //        reader.Read(); // leemos
+        //        count = reader.GetInt32(0); // guardamos en count
+        //    }
+        //    return count; // retornamos count
+        //}
         
         public void CerrarReclamo(int id)
         {

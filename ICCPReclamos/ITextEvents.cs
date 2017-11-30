@@ -79,7 +79,7 @@ namespace ICCPReclamos
             //Row 1
             var pdfCell1 = new PdfPCell(logo);
             var pdfCell2 = new PdfPCell(p1Header);
-            var text = "Página " + writer.PageNumber;
+            var text = "Página ";
             //string
 
             //Add paging to header

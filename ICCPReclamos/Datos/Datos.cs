@@ -6,6 +6,27 @@ using ICCPReclamos.Negocio;
 using System.Data.SqlClient;
 using System.Data;
 
+
+
+
+
+
+
+        //CLASE DATOS 
+        //ROBOTECH 2017
+        //ICCP.Net
+
+
+
+
+
+
+
+
+
+
+
+
 namespace ICCPReclamos.Datos
 {
     public class Datos
@@ -120,7 +141,7 @@ namespace ICCPReclamos.Datos
             }
             return count; // retornamos count
         }
-
+        // FUNCIONES SIN USO //
         //public int CountReclamosTecnico() // la función siguiente devuelve un INTEGER (count) , tiene como objetivo obtener el número mayor de ID en la tabla Reclamos para hacer ingresos adecuados
         //{
         //    var count = 0; // parte count en 0
@@ -168,7 +189,7 @@ namespace ICCPReclamos.Datos
         //    return count; // retornamos count
         //}
         
-        public void CerrarReclamo(int id)
+        public void CerrarReclamo(int id) // función para cerrar un reclamo por el ID.
         {
             try
             {
@@ -185,7 +206,7 @@ namespace ICCPReclamos.Datos
             }
         }
 
-        public List<TipoReclamo> GetTipoReclamo()
+        public List<TipoReclamo> GetTipoReclamo() // obtiene una lista de tipos de reclamos
         {
             var l = new List<TipoReclamo>(); // generamos la variable Listado para el tipoReclamo
             using (var conn = new SqlConnection(Str))
@@ -315,7 +336,7 @@ namespace ICCPReclamos.Datos
             return r; // retornamos r
         }
 
-        public List<Ingreso> BuscarReclamoRut(string Rut) // Funcion que entrega una Lista de Reclamos, para buscar reclamos vía rut, recibe un Rut (validado previamente en Index)
+        public List<Ingreso> BuscarReclamoRut(string Rut) // Funcion que entrega una Lista de Reclamos, para buscar reclamos vía rut, recibe un string que debería ser un Rut (de la forma 19)
         {
             var l = new List<Ingreso>();
             using (var conn = new SqlConnection(Str))
@@ -346,7 +367,7 @@ namespace ICCPReclamos.Datos
             }
             return l;
         }
-        public Ingreso BuscarReclamoId(int id)
+        public Ingreso BuscarReclamoId(int id) // Función que busca un reclamo dado un ID
         {
             Ingreso r = null;
             using (var conn = new SqlConnection(Str))
@@ -373,10 +394,14 @@ namespace ICCPReclamos.Datos
                         r = new Ingreso(ide, nom, ape, rut, ema, tel, tip, com, fec, pdf, sla);
                     }
                 }
+                else
+                {
+                    throw new Exception("No se encontró el ID, vuelva a intentarlo");
+                }
             }
             return r;
         }
-        public List<Log> GetLogs()
+        public List<Log> GetLogs() // función que retorna una lista con Logs descendentemente
         {
             var l = new List<Log>();
             using (var conn = new SqlConnection(Str))
